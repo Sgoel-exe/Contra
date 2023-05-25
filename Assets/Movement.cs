@@ -63,7 +63,12 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = new Vector2(moveDirection.x * speed, 0f);
+        Move();
+    }
+
+    void Move()
+    {
+        rb.velocity = new Vector2(moveDirection.x * speed, rb.velocity.y);
     }
 
     void Fire (InputAction.CallbackContext context)
@@ -73,14 +78,14 @@ public class Movement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        Debug.Log("Jump");
         if (IsGrounded())
         {
-            Debug.Log("Jump2");
             rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
     }   
+
     void Flip() 
     {         
         facingRight = !facingRight;
