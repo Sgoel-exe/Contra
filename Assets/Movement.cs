@@ -12,6 +12,9 @@ public class Movement : MonoBehaviour
     public Transform goundCheck;
     public LayerMask groundLayer;
 
+    public Transform firePoint;
+    public GameObject bulletPrefab;
+
     public Animator animator;
     
     private Vector2 moveDirection = Vector2.zero;
@@ -62,6 +65,10 @@ public class Movement : MonoBehaviour
             animator.SetBool("isRunning", false);
         }
         
+        if(!IsGrounded())
+        {
+            animator.SetBool("isJumping", false);
+        }
 
         if (moveDirection.x > 0 && !facingRight)
         {
@@ -85,26 +92,24 @@ public class Movement : MonoBehaviour
 
     void Fire (InputAction.CallbackContext context)
     {
-        Debug.Log("Fire");
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
     }
 
     public void Jump(InputAction.CallbackContext context)
     {
         if (IsGrounded())
         {
+            animator.SetBool("isJumping", true);
             //rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
-        if (moveDirection.y > 0f)
-        {
-            animator.SetBool("isJumping", true);
-        }
-        else
-        {
-            animator.SetBool("isJumping", false);
-        }
+        //animator.SetBool("isJumping", false);
+    }   
 
+    public bool isFalling()
+    {
+        return rb.velocity.y < 0;
     }   
 
     void Flip() 
