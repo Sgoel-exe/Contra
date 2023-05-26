@@ -6,11 +6,13 @@ using UnityEngine.InputSystem;
 public class Movement : MonoBehaviour
 {
     public float speed = 5f;
-    public float jumpForce = 20f;
+    public float jumpForce = 25f;
     public Rigidbody2D rb;
     public PlayerMovements playerInput;
     public Transform goundCheck;
     public LayerMask groundLayer;
+
+    public Animator animator;
     
     private Vector2 moveDirection = Vector2.zero;
     private InputAction moveAction;
@@ -51,6 +53,16 @@ public class Movement : MonoBehaviour
     void Update()
     {
         moveDirection = moveAction.ReadValue<Vector2>();
+        if(Mathf.Abs(moveDirection.x) > 0f)
+        {
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
+        
+
         if (moveDirection.x > 0 && !facingRight)
         {
             Flip();
@@ -80,8 +92,17 @@ public class Movement : MonoBehaviour
     {
         if (IsGrounded())
         {
-            rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            //rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+
+        if (moveDirection.y > 0f)
+        {
+            animator.SetBool("isJumping", true);
+        }
+        else
+        {
+            animator.SetBool("isJumping", false);
         }
 
     }   
