@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
 
     public float speed = 15f;
+    public int damage = 50;
     public Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -16,7 +17,12 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.name);
+        //Debug.Log(collision.name);
+        enemyScript enemy = collision.GetComponent<enemyScript>();
+        if(enemy != null)
+        {
+            enemy.TakeDamage(damage);
+        }
         Destroy(gameObject);
     }
 }
