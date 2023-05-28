@@ -11,6 +11,8 @@ public class Movement : MonoBehaviour
     public PlayerMovements playerInput;
     public Transform goundCheck;
     public LayerMask groundLayer;
+    public Transform wallCheck;
+    public LayerMask wallLayer;
 
     public Transform firePoint;
     public GameObject bulletPrefab;
@@ -23,6 +25,17 @@ public class Movement : MonoBehaviour
     private InputAction jumpAction;
 
     private bool facingRight = true;
+
+    private bool isWallSliding = false;
+    private float wallSlideSpeed = 0.75f;
+
+    public bool isWallJumping = false;
+    private float wallJumpDirection;
+    private float wallJumpTime = 0.4f;
+    private float wallJumpCounter;
+    private float wallJumpDuration = 0.4f;
+    public Vector2 wallJumpForce = new Vector2(30f, 20f);
+
 
     private void Awake()
     {
@@ -69,6 +82,9 @@ public class Movement : MonoBehaviour
         {
             animator.SetBool("isJumping", false);
         }
+        else if(!isWalled()){
+            animator.SetBool("isWallJumping", false);
+        }
 
         if (moveDirection.x > 0 && !facingRight)
         {
@@ -78,6 +94,7 @@ public class Movement : MonoBehaviour
         {
             Flip();
         }
+        wallSlide();
     }
 
     void FixedUpdate()
@@ -103,10 +120,72 @@ public class Movement : MonoBehaviour
             //rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
+        else if (isWalled())
+        {
+            animator.SetBool("isWallJumping", true);
+            wallJump();
+        }
 
         //animator.SetBool("isJumping", false);
     }   
 
+    private void wallSlide()
+    {
+          if (isWalled() && !IsGrounded() && rb.velocity.y < 0)
+        {
+            isWallSliding = true;
+            animator.SetBool("isWallSliding", true);
+        }
+        else
+        {
+            isWallSliding = false;
+            animator.SetBool("isWallSliding", false);
+        }
+
+        if (isWallSliding)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, -wallSlideSpeed);
+        }   
+    }
+
+    private void wallJump()
+    {
+        if (isWallSliding)
+        {
+            isWallJumping = false;
+            if(facingRight)
+            {
+                wallJumpDirection = -1f;
+            }
+            else
+            {
+                wallJumpDirection = 1f;
+            }
+            //wallJumpDirection = -transform.rotation.y;
+            wallJumpCounter = wallJumpTime;
+            CancelInvoke("stopWallJump");
+        }
+        else
+        {
+            wallJumpCounter -= Time.deltaTime;
+        }
+
+        if(wallJumpCounter > 0f)
+        {
+            isWallJumping = true;
+            rb.velocity = new Vector2(wallJumpForce.x * wallJumpDirection, wallJumpForce.y);
+            wallJumpCounter = 0f;
+
+            Flip();
+
+            Invoke("stopWallJump", wallJumpDuration);
+        }
+    }
+
+    public void stopWallJump()
+    {
+        isWallJumping = false;
+    }
     public bool isFalling()
     {
         return rb.velocity.y < 0;
@@ -122,4 +201,9 @@ public class Movement : MonoBehaviour
     {
         return Physics2D.OverlapCircle(goundCheck.position, 0.2f, groundLayer);
     }   
+
+    private bool isWalled()
+    {
+        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
+    }
 }
