@@ -32,8 +32,8 @@ public class Movement : MonoBehaviour
 
     public bool isWallJumping = false;
     private float wallJumpDirection = -1f;
-    private float wallJumpTime = 0.4f;
-    private float wallJumpCounter;
+    //private float wallJumpTime = 0.4f;
+    //private float wallJumpCounter;
     private float wallJumpDuration = 1f;
     public Vector2 wallJumpForce = new Vector2(30f, 20f);
 
@@ -152,36 +152,17 @@ public class Movement : MonoBehaviour
 
     private void wallJump()
     {
-        if (isWallSliding)
-        {
-            isWallJumping = false;
-            if(facingRight)
+        if(facingRight)
             {
-                wallJumpDirection = -1f;
-            }
+            wallJumpDirection = -1f;
+        }
             else
-            {
-                wallJumpDirection = 1f;
-            }
-            //wallJumpDirection = -transform.rotation.y;
-            wallJumpCounter = wallJumpTime;
-            //CancelInvoke("stopWallJump");
-        }
-        else
         {
-            wallJumpCounter -= Time.deltaTime;
+            wallJumpDirection = -1f;
         }
-
-        if(wallJumpCounter > 0f)
-        {
-            isWallJumping = true;
-            rb.velocity = new Vector2(wallJumpForce.x * wallJumpDirection, wallJumpForce.y);
-            wallJumpCounter = 0f;
-
-            Flip();
-
-            //Invoke("stopWallJump", wallJumpDuration);
-        }
+        isWallJumping = true;
+        rb.velocity = new Vector2(wallJumpForce.x * wallJumpDirection, wallJumpForce.y);
+        Invoke("stopWallJump", wallJumpDuration);
     }
 
     public void stopWallJump()
