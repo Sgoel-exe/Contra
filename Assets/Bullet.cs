@@ -7,12 +7,14 @@ public class Bullet : MonoBehaviour
 
     public float speed = 15f;
     public int damage = 50;
+    public float lifeTime = 1.5f;
     public Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
         rb.velocity = transform.right * speed;
+        Destroy(gameObject, lifeTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

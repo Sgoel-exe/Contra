@@ -54,8 +54,13 @@ public class enemyScript : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-       isFacingLeft = !isFacingLeft;
-       transform.Rotate(0f, 180f, 0f);
+    if (collision.gameObject.CompareTag("ground"))
+        {
+            isFacingLeft = !isFacingLeft;
+            transform.Rotate(0f, 180f, 0f);
+        }
+       //isFacingLeft = !isFacingLeft;
+       // transform.Rotate(0f, 180f, 0f);
     }
 
 }

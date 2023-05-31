@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
+    public int health = 100;
     public float speed = 5f;
     public float jumpForce = 25f;
     public Rigidbody2D rb;
@@ -30,10 +31,10 @@ public class Movement : MonoBehaviour
     private float wallSlideSpeed = 0.75f;
 
     public bool isWallJumping = false;
-    private float wallJumpDirection;
+    private float wallJumpDirection = -1f;
     private float wallJumpTime = 0.4f;
     private float wallJumpCounter;
-    private float wallJumpDuration = 0.4f;
+    private float wallJumpDuration = 1f;
     public Vector2 wallJumpForce = new Vector2(30f, 20f);
 
 
@@ -100,6 +101,7 @@ public class Movement : MonoBehaviour
     void FixedUpdate()
     {
         Move();
+        //wallJump();
     }
 
     void Move()
@@ -163,7 +165,7 @@ public class Movement : MonoBehaviour
             }
             //wallJumpDirection = -transform.rotation.y;
             wallJumpCounter = wallJumpTime;
-            CancelInvoke("stopWallJump");
+            //CancelInvoke("stopWallJump");
         }
         else
         {
@@ -178,7 +180,7 @@ public class Movement : MonoBehaviour
 
             Flip();
 
-            Invoke("stopWallJump", wallJumpDuration);
+            //Invoke("stopWallJump", wallJumpDuration);
         }
     }
 
@@ -189,7 +191,22 @@ public class Movement : MonoBehaviour
     public bool isFalling()
     {
         return rb.velocity.y < 0;
-    }   
+    }
+    
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if(health <= 0)
+        {
+            Die();
+        }
+    }  
+
+    void Die()
+    {
+        Destroy(gameObject);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Gameover");
+    }
 
     void Flip() 
     {         
