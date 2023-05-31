@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-    public int health = 100;
     public float speed = 5f;
     public float jumpForce = 25f;
     public Rigidbody2D rb;
@@ -15,14 +14,10 @@ public class Movement : MonoBehaviour
     public Transform wallCheck;
     public LayerMask wallLayer;
 
-    public Transform firePoint;
-    public GameObject bulletPrefab;
-
     public Animator animator;
     
     private Vector2 moveDirection = Vector2.zero;
     private InputAction moveAction;
-    private InputAction fireAction;
     private InputAction jumpAction;
 
     private bool facingRight = true;
@@ -32,8 +27,6 @@ public class Movement : MonoBehaviour
 
     public bool isWallJumping = false;
     private float wallJumpDirection = -1f;
-    //private float wallJumpTime = 0.4f;
-    //private float wallJumpCounter;
     private float wallJumpDuration = 1f;
     public Vector2 wallJumpForce = new Vector2(30f, 20f);
 
@@ -41,17 +34,11 @@ public class Movement : MonoBehaviour
     private void Awake()
     {
         playerInput = new PlayerMovements();
-        //playerInput.Player.Move.performed += ctx => moveDirection = ctx.ReadValue<Vector2>();
-        //playerInput.Player.Move.canceled += ctx => moveDirection = Vector2.zero;
     }
     private void OnEnable()
     {
         moveAction = playerInput.Player.Move;
         moveAction.Enable();
-        
-        fireAction = playerInput.Player.Fire;
-        fireAction.Enable();
-        fireAction.performed += Fire;
 
         jumpAction = playerInput.Player.Jump;
         jumpAction.Enable();
@@ -62,7 +49,7 @@ public class Movement : MonoBehaviour
     {
         moveAction.Disable();  
     }
-    // Start is called before the first frame update 
+    
     void Start()
     {
     }
@@ -107,11 +94,6 @@ public class Movement : MonoBehaviour
     void Move()
     {
         rb.velocity = new Vector2(moveDirection.x * speed, rb.velocity.y);
-    }
-
-    void Fire (InputAction.CallbackContext context)
-    {
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -174,20 +156,6 @@ public class Movement : MonoBehaviour
         return rb.velocity.y < 0;
     }
     
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-        if(health <= 0)
-        {
-            Die();
-        }
-    }  
-
-    void Die()
-    {
-        Destroy(gameObject);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Gameover");
-    }
 
     void Flip() 
     {         
