@@ -68,10 +68,26 @@ public class Movement : MonoBehaviour
         
         if(!IsGrounded())
         {
-            animator.SetBool("isJumping", false);
+            //animator.SetBool("isJumping", false);
+            if(rb.velocity.y < 0 && !isWalled())
+            {
+                animator.SetBool("isFalling", true);
+                animator.SetBool("isJumping", false);
+            }
+            else if(rb.velocity.y > 0)
+            {
+                animator.SetBool("isJumping", true);
+                animator.SetBool("isFalling", false);
+            }
         }
         else if(!isWalled()){
             animator.SetBool("isWallJumping", false);
+            animator.SetBool("isFalling", false);
+        }
+
+        if (IsGrounded() || isWalled())
+        {
+            animator.SetBool("isFalling", false);
         }
 
         if (moveDirection.x > 0 && !facingRight)
