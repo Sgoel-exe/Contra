@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-    public float speed = 5f;
+    [SerializeField] private float speed = 5f;
     public float jumpForce = 25f;
     public Rigidbody2D rb;
     public PlayerMovements playerInput;
@@ -29,7 +29,6 @@ public class Movement : MonoBehaviour
     private float wallJumpDirection = -1f;
     private float wallJumpDuration = 1f;
     public Vector2 wallJumpForce = new Vector2(30f, 20f);
-
 
     private void Awake()
     {
@@ -188,4 +187,21 @@ public class Movement : MonoBehaviour
     {
         return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
     }
+
+   private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("MovingPlatforms"))
+        {
+            rb.interpolation = RigidbodyInterpolation2D.Extrapolate;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("MovingPlatforms"))
+        {
+            rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+        }
+    }
+   
 }

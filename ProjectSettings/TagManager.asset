@@ -7,6 +7,8 @@ TagManager:
   - wall
   - ground
   - Enemy
+  - OneWayPlatforms
+  - MovingPlatforms
   layers:
   - Default
   - TransparentFX
