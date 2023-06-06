@@ -17,6 +17,11 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, lifeTime);
     }
 
+    public void BulletCollison()
+    {
+        Destroy(gameObject);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log(collision.name);
@@ -24,6 +29,14 @@ public class Bullet : MonoBehaviour
         if(enemy != null)
         {
             enemy.TakeDamage(damage);
+        }
+        else if(collision.gameObject.CompareTag("Bullet"))
+        {
+            if(this.damage >= collision.gameObject.GetComponent<EnemyBullet>().getDamage())
+            {
+                collision.gameObject.GetComponent<EnemyBullet>().BulletCollison();
+            }
+
         }
         Destroy(gameObject);
     }
