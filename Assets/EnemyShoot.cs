@@ -9,16 +9,20 @@ public class EnemyShoot : MonoBehaviour
     public Transform firePoint;
     public float bulletForce = 20f;
     public float fireRate = 2f;
-    public float range = 10f;
+    public float range = 15f;
     public int bulletDamage = 20;
 
     public float bulletLife = 2f;
 
     private float nextFire = 0f;
     private GameObject player;
+
+    private enemyScript thisScript;
+    public Animator animator;
     // Start is called before the first frame update
     void Start()
     {
+        thisScript = this.GetComponent<enemyScript>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -29,13 +33,22 @@ public class EnemyShoot : MonoBehaviour
 
         if (distance < range)
         {
-            Debug.Log(distance);
+            //Debug.Log(distance);
             nextFire += Time.deltaTime;
         }
         if (nextFire > fireRate)
         {
+            if (!isFacingPlayer())
+            {
+                thisScript.TransformFlip();
+                
+            }
+            thisScript.stopMovment();
+            animator.SetBool("isShooting", true);
             nextFire = 0f;
             Shoot();
+
+            animator.SetBool("isShooting", false);
         }
     }
 
@@ -46,5 +59,18 @@ public class EnemyShoot : MonoBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(-firePoint.right * bulletForce, ForceMode2D.Impulse);
         Destroy(bullet, bulletLife);
+    }
+
+    public bool isFacingPlayer()
+    {
+        if(thisScript.body.velocity.x > 0f && transform.position.x - player.transform.position.x > 0f)
+        {
+            return false;
+        }
+        else if(thisScript.body.velocity.x < 0f && transform.position.x - player.transform.position.x < 0f)
+        {
+            return false;
+        }
+        return true;
     }
 }

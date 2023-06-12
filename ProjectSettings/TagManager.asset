@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - OneWayPlatforms
   - MovingPlatforms
+  - Bullet
   layers:
   - Default
   - TransparentFX
