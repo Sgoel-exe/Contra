@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log(collision.name);
-        enemyScript enemy = collision.GetComponent<enemyScript>();
+        EnemyHealthScript enemy = collision.GetComponent<EnemyHealthScript>();
         if(enemy != null)
         {
             enemy.TakeDamage(damage);

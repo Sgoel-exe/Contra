@@ -1,28 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneTemplate;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class EnemyShoot : MonoBehaviour
+public class BossBattle1 : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public Transform firePoint;
     public float bulletForce = 20f;
-    public float fireRate = 2f;
+    public float fireRate = 0.5f;
     public float range = 15f;
-    public int bulletDamage = 20;
+    public int bulletDamage = 40;
 
     public float bulletLife = 2f;
 
     private float nextFire = 0f;
     private GameObject player;
 
-    private EnemyMovementScript thisScript;
-   // public Animator animator;
+    private EnemyHealthScript thishealth;
     // Start is called before the first frame update
     void Start()
     {
-        thisScript = this.GetComponent<EnemyMovementScript>();
+        thishealth = this.GetComponent<EnemyHealthScript>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -38,19 +37,18 @@ public class EnemyShoot : MonoBehaviour
         }
         if (nextFire > fireRate)
         {
-            thisScript.stopMovement();
-            if (!isFacingPlayer())
-            {
-                thisScript.flip();
-            }
             //animator.SetBool("isShooting", true);
             nextFire = 0f;
             Shoot();
 
             //animator.SetBool("isShooting", false);
         }
-    }
 
+        if(thishealth.curHealth <= 100)
+        {
+            SceneManager.LoadScene("Start");
+        }
+    }
     void Shoot()
     {
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
@@ -59,18 +57,4 @@ public class EnemyShoot : MonoBehaviour
         rb.AddForce(-firePoint.right * bulletForce, ForceMode2D.Impulse);
         Destroy(bullet, bulletLife);
     }
-    
-    public bool isFacingPlayer()
-    {
-        if(!thisScript.isFacingLeft && transform.position.x - player.transform.position.x > 0f)
-        {
-            return false;
-        }
-        else if(thisScript.isFacingLeft && transform.position.x - player.transform.position.x < 0f)
-        {
-            return false;
-        }
-        return true;
-    }
-    
 }

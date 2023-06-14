@@ -39,6 +39,10 @@ public class EnemyBullet : MonoBehaviour
         {
             health.TakeDamage(damage);
         }
-        Destroy(gameObject);
+        if(collision.tag != "Enemy")
+        {
+            Destroy(gameObject);
+        }
+        
     }
 }
