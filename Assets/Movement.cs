@@ -5,7 +5,10 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
+    //Misc
+    [SerializeField] private float speed = 7f;
+    [SerializeField] private float normalSpeed = 5f;
+    [SerializeField] private float crouchSpeed = 3.5f;
     public float jumpForce = 25f;
     public Rigidbody2D rb;
     public PlayerMovements playerInput;
@@ -16,20 +19,38 @@ public class Movement : MonoBehaviour
 
     public Animator animator;
     
+    //PlayerInputs
     private Vector2 moveDirection = Vector2.zero;
     private InputAction moveAction;
     private InputAction jumpAction;
 
     private bool facingRight = true;
 
+    //wall jump
     private bool isWallSliding = false;
     private float wallSlideSpeed = 0.75f;
-
-    public bool isWallJumping = false;
+    private bool isWallJumping = false;
     private float wallJumpDirection = -1f;
     private float wallJumpDuration = 1f;
     public Vector2 wallJumpForce = new Vector2(30f, 20f);
 
+    //crouch
+    public BoxCollider2D playerCollider;
+    public SpriteRenderer playerRender;
+    private Vector2 ColliderStandingSize;
+    private Vector2 standingOffset;
+    public Vector2 crouchingOffset;
+    public Vector2 ColliderCrouchSize;
+    private Sprite standingSprite;
+    public Sprite crouchSprite;
+
+    //Dash
+    public float dashForce = 20f;
+    public float dashTime = 0.6f;
+    private bool canDash = true;
+    private bool isDashin = false;
+    private TrailRenderer tr;
+    
     private void Awake()
     {
         playerInput = new PlayerMovements();
@@ -51,11 +72,23 @@ public class Movement : MonoBehaviour
     
     void Start()
     {
+        playerCollider = GetComponent<BoxCollider2D>();
+        playerRender = GetComponent<SpriteRenderer>();
+        standingSprite = playerRender.sprite;
+        ColliderStandingSize = playerCollider.size;
+        standingOffset = playerCollider.offset;
+        tr = GetComponent<TrailRenderer>();
     }
     // Update is called once per frame
     void Update()
     {
+        if (isDashin)
+        {
+            return;
+        }
         moveDirection = moveAction.ReadValue<Vector2>();
+
+        //Set animation
         if(Mathf.Abs(moveDirection.x) > 0f)
         {
             animator.SetBool("isRunning", true);
@@ -65,6 +98,7 @@ public class Movement : MonoBehaviour
             animator.SetBool("isRunning", false);
         }
         
+        //Wierd jump/wallslide animation contorl
         if(!IsGrounded())
         {
             //animator.SetBool("isJumping", false);
@@ -89,6 +123,7 @@ public class Movement : MonoBehaviour
             animator.SetBool("isFalling", false);
         }
 
+        //flipper
         if (moveDirection.x > 0 && !facingRight)
         {
             Flip();
@@ -97,11 +132,53 @@ public class Movement : MonoBehaviour
         {
             Flip();
         }
+
         wallSlide();
+
+        //Crouch
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            if (IsGrounded())
+            {
+                playerCollider.size = ColliderCrouchSize;
+                playerCollider.offset = crouchingOffset;
+                animator.SetBool("isCrouching", true);
+                speed = crouchSpeed;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            playerCollider.size = ColliderStandingSize;
+            playerCollider.offset = standingOffset;
+            animator.SetBool("isCrouching", false);
+            speed = normalSpeed;
+        }
+
+        //dash
+        if(!IsGrounded())
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (canDash)
+                {
+                    canDash = false;
+                    StartCoroutine(Dash());
+                }
+            }
+        }
+        else
+        {
+            canDash = true;
+        }
     }
 
     void FixedUpdate()
     {
+        if (isDashin)
+        {
+            return;
+        }
         Move();
         //wallJump();
     }
@@ -126,7 +203,20 @@ public class Movement : MonoBehaviour
         }
 
         //animator.SetBool("isJumping", false);
-    }   
+    }
+    
+    public IEnumerator Dash()
+    {
+        isDashin = true;
+        float originalGravity = rb.gravityScale;
+        rb.gravityScale = 0;
+        rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * dashForce, 0f);
+        tr.emitting = true;
+        yield return new WaitForSeconds(dashTime);
+        rb.gravityScale = originalGravity;
+        tr.emitting = false;
+        isDashin = false;
+    }
 
     private void wallSlide()
     {
