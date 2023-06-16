@@ -7,6 +7,7 @@ public class HealthScript : MonoBehaviour
     public int maxhealth = 100;
     public int curhealth = 100;
     public HealthBar healthBar;
+    public GameObject blood;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +32,7 @@ public class HealthScript : MonoBehaviour
     public void TakeDamage(int damage)
     {
         curhealth -= damage;
+        Instantiate(blood, transform.position, Quaternion.identity);
         healthBar.setHealth(curhealth, maxhealth);
         if (curhealth <= 0)
         {
