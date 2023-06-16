@@ -209,7 +209,7 @@ public class Movement : MonoBehaviour
     {
         isDashin = true;
         float originalGravity = rb.gravityScale;
-        rb.gravityScale = 0;
+        rb.gravityScale = 0.25f;
         rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * dashForce, 0f);
         tr.emitting = true;
         yield return new WaitForSeconds(dashTime);
