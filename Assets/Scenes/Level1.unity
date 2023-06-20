@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2159810440354849947, guid: 672770adb069c474a8670d96201b5fc0, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: d228726cabb905746a2aaff6cb865dd6, type: 2}
     - target: {fileID: 4022317480007410716, guid: 672770adb069c474a8670d96201b5fc0, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -539,10 +543,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59d5634ceeda8704fb33893102b39ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6.5
-  normalSpeed: 5
-  crouchSpeed: 3.5
-  jumpForce: 35
   rb: {fileID: 373904246}
   goundCheck: {fileID: 558447770}
   groundLayer:
@@ -552,6 +552,43 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 128
+  speed: 7
+  normalSpeed: 7
+  crouchSpeed: 3.5
+  movemntCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.21433021
+      value: 0.62396073
+      inSlope: 2.434721
+      outSlope: 2.434721
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.31362656
+      outWeight: 0.083165176
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  jumpForce: 35
   animator: {fileID: 373904260}
   wallJumpForce: {x: 30, y: 25}
   playerCollider: {fileID: 0}
@@ -559,8 +596,8 @@ MonoBehaviour:
   crouchingOffset: {x: 0, y: -0.25}
   ColliderCrouchSize: {x: 0.25, y: 0.28}
   crouchSprite: {fileID: 21300000, guid: 4ee418e99554d494292cc9b02de0fa44, type: 3}
-  dashForce: 20
-  dashTime: 0.6
+  dashForce: 50
+  dashTime: 0.24
 --- !u!114 &373904259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,6 +700,10 @@ MonoBehaviour:
   maxhealth: 100
   curhealth: 100
   healthBar: {fileID: 74967629}
+  blood: {fileID: 5090656838415289946, guid: b040feb845345904199000d38a12308b, type: 3}
+  numOStun: 10
+  vanishTime: 0.1
+  flashColor: {r: 1, g: 0, b: 0.36078432, a: 1}
 --- !u!114 &373904265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1038,6 +1079,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2159810440354849947, guid: 672770adb069c474a8670d96201b5fc0, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: d228726cabb905746a2aaff6cb865dd6, type: 2}
     - target: {fileID: 4022317480007410716, guid: 672770adb069c474a8670d96201b5fc0, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -1430,6 +1475,18 @@ PrefabInstance:
     - target: {fileID: 312134411970715973, guid: 24f1134deedd24bd8a42117e97e04308, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154749031466128002, guid: 24f1134deedd24bd8a42117e97e04308, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154749031466128002, guid: 24f1134deedd24bd8a42117e97e04308, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2154749031466128002, guid: 24f1134deedd24bd8a42117e97e04308, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2154749031466128061, guid: 24f1134deedd24bd8a42117e97e04308, type: 3}
       propertyPath: m_Controller
@@ -2625,5 +2682,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 7836348405376455021, guid: 22092b8baf0e42f4abbda86deb278144, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: d228726cabb905746a2aaff6cb865dd6, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22092b8baf0e42f4abbda86deb278144, type: 3}

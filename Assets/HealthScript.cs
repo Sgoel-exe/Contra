@@ -7,12 +7,20 @@ public class HealthScript : MonoBehaviour
     public int maxhealth = 100;
     public int curhealth = 100;
     public HealthBar healthBar;
+    
     public GameObject blood;
+
+    private SpriteRenderer thisSprite;
+    //private Rigidbody2D rb;
+    [SerializeField] private int numOStun = 10;
+    [SerializeField] private float vanishTime = 0.1f;
+    [SerializeField] private Color flashColor;
     // Start is called before the first frame update
     void Start()
     {
-        //curhealth = maxhealth;
         healthBar.setHealth(curhealth, maxhealth);
+        thisSprite = GetComponent<SpriteRenderer>();
+        //rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -34,12 +42,26 @@ public class HealthScript : MonoBehaviour
         curhealth -= damage;
         Instantiate(blood, transform.position, Quaternion.identity);
         healthBar.setHealth(curhealth, maxhealth);
+        StartCoroutine(DamageStun());
         if (curhealth <= 0)
         {
             Die();
         }
     }
 
+    public IEnumerator DamageStun()
+    {
+        Color ogColor = thisSprite.color;
+        
+        for(int temp = 0; temp < numOStun; temp ++)
+        {
+            thisSprite.color = flashColor;
+            yield return new WaitForSeconds(vanishTime);
+            thisSprite.color = ogColor;
+            yield return new WaitForSeconds(vanishTime);
+        }
+        
+    }
     void Die()
     {
         Destroy(gameObject);

@@ -6,16 +6,22 @@ using UnityEngine.InputSystem;
 public class Movement : MonoBehaviour
 {
     //Misc
-    [SerializeField] private float speed = 7f;
-    [SerializeField] private float normalSpeed = 5f;
-    [SerializeField] private float crouchSpeed = 3.5f;
-    public float jumpForce = 25f;
     public Rigidbody2D rb;
     public PlayerMovements playerInput;
     public Transform goundCheck;
     public LayerMask groundLayer;
     public Transform wallCheck;
     public LayerMask wallLayer;
+
+    //Movement
+    [SerializeField] private float speed = 7f;
+    [SerializeField] private float normalSpeed = 7f;
+    [SerializeField] private float crouchSpeed = 3.5f;
+    private float time = 0;
+    private float appliedSpeed;
+    public AnimationCurve movemntCurve;
+    public float jumpForce = 25f;
+
 
     public Animator animator;
     
@@ -156,7 +162,7 @@ public class Movement : MonoBehaviour
         }
 
         //dash
-        if(!IsGrounded())
+        if(!IsGrounded() && !isWalled())
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -171,6 +177,8 @@ public class Movement : MonoBehaviour
         {
             canDash = true;
         }
+
+        //timeManagerForMovement();
     }
 
     void FixedUpdate()
@@ -180,12 +188,28 @@ public class Movement : MonoBehaviour
             return;
         }
         Move();
+        //time = 0;
         //wallJump();
     }
 
     void Move()
     {
-        rb.velocity = new Vector2(moveDirection.x * speed, rb.velocity.y);
+        time += Time.deltaTime;
+        appliedSpeed = movemntCurve.Evaluate(time) * speed;
+        rb.velocity = new Vector2(moveDirection.x * appliedSpeed, rb.velocity.y);
+    }
+
+    private void timeManagerForMovement()
+    {
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
+        {
+            time += Time.deltaTime;
+        }
+        else
+        {
+            time = 0;
+        }
+
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -210,7 +234,7 @@ public class Movement : MonoBehaviour
         isDashin = true;
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0.25f;
-        rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * dashForce, 0f);
+        rb.velocity = new Vector2(Mathf.Sign(transform.rotation.y) * dashForce, 0f);
         tr.emitting = true;
         yield return new WaitForSeconds(dashTime);
         rb.gravityScale = originalGravity;
