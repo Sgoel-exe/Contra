@@ -35,9 +35,9 @@ public class Movement : MonoBehaviour
     //wall jump
     private bool isWallSliding = false;
     private float wallSlideSpeed = 0.75f;
-    private bool isWallJumping = false;
+    //private bool isWallJumping = false;
     private float wallJumpDirection = -1f;
-    private float wallJumpDuration = 1f;
+    //private float wallJumpDuration = 1f;
     public Vector2 wallJumpForce = new Vector2(30f, 20f);
 
     //crouch
@@ -271,14 +271,7 @@ public class Movement : MonoBehaviour
         {
             wallJumpDirection = -1f;
         }
-        isWallJumping = true;
         rb.velocity = new Vector2(wallJumpForce.x * wallJumpDirection, wallJumpForce.y);
-        Invoke("stopWallJump", wallJumpDuration);
-    }
-
-    public void stopWallJump()
-    {
-        isWallJumping = false;
     }
     public bool isFalling()
     {

@@ -49,6 +49,16 @@ public class HealthScript : MonoBehaviour
         }
     }
 
+    public void addHealt(int amount)
+    {
+        curhealth += amount;
+        if(curhealth > maxhealth)
+        {
+            maxhealth = curhealth;
+        }
+        healthBar.setHealth(curhealth, maxhealth);
+    }
+
     public IEnumerator DamageStun()
     {
         Color ogColor = thisSprite.color;
