@@ -10,6 +10,7 @@ TagManager:
   - OneWayPlatforms
   - MovingPlatforms
   - Bullet
+  - Collectible
   layers:
   - Default
   - TransparentFX

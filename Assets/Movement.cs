@@ -19,7 +19,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float crouchSpeed = 3.5f;
     private float time = 0;
     private float appliedSpeed;
-    public AnimationCurve movemntCurve;
+    public AnimationCurve movementCurve;
     public float jumpForce = 25f;
 
 
@@ -188,29 +188,25 @@ public class Movement : MonoBehaviour
             return;
         }
         Move();
+
+        if (moveAction.WasReleasedThisFrame())
+        {
+            time = 0;
+        }
+        else if(moveAction.inProgress)
+        {
+            time += Time.deltaTime;
+        }
         //time = 0;
         //wallJump();
     }
 
     void Move()
     {
-        time += Time.deltaTime;
-        appliedSpeed = movemntCurve.Evaluate(time) * speed;
+        appliedSpeed = movementCurve.Evaluate(time) * speed;
         rb.velocity = new Vector2(moveDirection.x * appliedSpeed, rb.velocity.y);
     }
 
-    private void timeManagerForMovement()
-    {
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
-        {
-            time += Time.deltaTime;
-        }
-        else
-        {
-            time = 0;
-        }
-
-    }
 
     public void Jump(InputAction.CallbackContext context)
     {

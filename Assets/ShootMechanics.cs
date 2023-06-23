@@ -21,6 +21,7 @@ public class ShootMechanics : MonoBehaviour
     [SerializeField] private int currentBullets = 6;
     [SerializeField] private float reloadTime = 0.5f;
     [SerializeField] private int reservedAmmo = 24;
+    private int maxAmmo = 60;
     public InputAction reloadKey;
     public Text ammotext;
 
@@ -110,7 +111,14 @@ public class ShootMechanics : MonoBehaviour
 
     public void addAmmo(int amount)
     {
-        reservedAmmo += amount;
+        if(reservedAmmo + amount >= maxAmmo)
+        {
+            reservedAmmo = maxAmmo;
+        }
+        else
+        {
+            reservedAmmo += amount;
+        }
     }
     public void setMagSize(int magSize)
     {

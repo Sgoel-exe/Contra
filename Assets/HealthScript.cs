@@ -15,11 +15,13 @@ public class HealthScript : MonoBehaviour
     [SerializeField] private int numOStun = 10;
     [SerializeField] private float vanishTime = 0.1f;
     [SerializeField] private Color flashColor;
+    private Color ogColor;
     // Start is called before the first frame update
     void Start()
     {
         healthBar.setHealth(curhealth, maxhealth);
         thisSprite = GetComponent<SpriteRenderer>();
+        ogColor = thisSprite.color;
         //rb = GetComponent<Rigidbody2D>();
     }
 
@@ -54,15 +56,13 @@ public class HealthScript : MonoBehaviour
         curhealth += amount;
         if(curhealth > maxhealth)
         {
-            maxhealth = curhealth;
+            curhealth = maxhealth;
         }
         healthBar.setHealth(curhealth, maxhealth);
     }
 
     public IEnumerator DamageStun()
-    {
-        Color ogColor = thisSprite.color;
-        
+    {   
         for(int temp = 0; temp < numOStun; temp ++)
         {
             thisSprite.color = flashColor;
