@@ -6,8 +6,9 @@ public class Bullet : MonoBehaviour
 {
 
     public float speed = 15f;
-    public int damage = 50;
+    public int damage = 15;
     public float lifeTime = 1.5f;
+    private float timeAlive = 0;
     public Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -17,9 +18,36 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject, lifeTime);
     }
 
+    private void Update()
+    {
+        if(timeAlive >= lifeTime)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            timeAlive += Time.smoothDeltaTime;
+        }
+    }
+
     public void BulletCollison()
     {
         Destroy(gameObject);
+    }
+
+    public void setSpeed(float speed)
+    {
+        this.speed = speed;
+    }
+
+    public void setDamage(int damage)
+    {
+        this.damage = damage;
+    }
+
+    public void setLifeTime(float lifetime)
+    {
+        this.lifeTime = lifetime;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
