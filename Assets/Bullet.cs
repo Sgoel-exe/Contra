@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 
-    public float speed = 15f;
+    public float speed = 30f;
     public int damage = 15;
     public float lifeTime = 1.5f;
     private float timeAlive = 0;
@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         rb.velocity = transform.right * speed;
-        Destroy(gameObject, lifeTime);
+        //Destroy(gameObject, lifeTime);
     }
 
     private void Update()

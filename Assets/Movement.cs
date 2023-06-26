@@ -17,6 +17,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float speed = 7f;
     [SerializeField] private float normalSpeed = 7f;
     [SerializeField] private float crouchSpeed = 3.5f;
+    private float speedMultiplier = 1f;
     private float time = 0;
     private float appliedSpeed;
     public AnimationCurve movementCurve;
@@ -201,9 +202,13 @@ public class Movement : MonoBehaviour
         //wallJump();
     }
 
+    public void setSpeedMultiplier(float mult)
+    {
+        speedMultiplier = mult;
+    }
     void Move()
     {
-        appliedSpeed = movementCurve.Evaluate(time) * speed;
+        appliedSpeed = movementCurve.Evaluate(time) * speed * speedMultiplier;
         rb.velocity = new Vector2(moveDirection.x * appliedSpeed, rb.velocity.y);
     }
 

@@ -10,6 +10,8 @@ public class ShootMechanics : MonoBehaviour
 
     public Transform firePoint;
     public GameObject bulletPrefab;
+    private float bulletSpeed = 15f;
+    private int bulletDamage = 15;
     //public GameObject MuzzleFlash;
 
     public Animator animator;
@@ -54,12 +56,31 @@ public class ShootMechanics : MonoBehaviour
         fire(false);
     }
 
+    public void setBulletSpeed(float bs)
+    {
+        bulletSpeed = bs;
+    }
+    public float getBulletSpeed()
+    {
+        return bulletSpeed;
+    }
+
+    public void setBulletDamage(int damage)
+    {
+        bulletDamage = damage;
+    }
+    public int gerBulletDamge()
+    {
+        return bulletDamage;
+    }
     void fire(bool isHeld)
     {
         if (canShoot())
         {
             currentBullets--;
             animator.SetBool("isShooting", true);
+            //bulletPrefab.GetComponent<Bullet>().setSpeed(bulletSpeed);
+            //bulletPrefab.GetComponent <Bullet>().setDamage(bulletDamage);
             Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             //Instantiate(MuzzleFlash, firePoint.position, Quaternion.Euler(0,0,0));
             Invoke("StopShoot", animationTime);

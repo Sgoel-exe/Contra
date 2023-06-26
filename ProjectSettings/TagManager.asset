@@ -11,6 +11,7 @@ TagManager:
   - MovingPlatforms
   - Bullet
   - Collectible
+  - Power
   layers:
   - Default
   - TransparentFX

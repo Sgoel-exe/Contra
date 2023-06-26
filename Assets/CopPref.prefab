@@ -58,7 +58,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6038315204475538931}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.01, y: 0, z: 0}
+  m_LocalPosition: {x: 3.01, y: -0.29, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -89,7 +89,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6038315205204515863}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.34, y: 0, z: 0}
+  m_LocalPosition: {x: -18.34, y: -0.29, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -103,6 +103,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6038315204011205916}
     m_Modifications:
+    - target: {fileID: 4515632846078498751, guid: 6cc6f4aae44d89f468bee36a5cea844a, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4515632847449423841, guid: 6cc6f4aae44d89f468bee36a5cea844a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -189,13 +193,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5988fdda79766e64eb09f44292102091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathEffect: {fileID: 6416419833205740478, guid: e360672ae39314ff1a77fee796e40aaa, type: 3}
   body: {fileID: 3059450398438942261}
   speed: 5
   PointA: {fileID: 6038315205204515856}
   PointB: {fileID: 6038315204475538892}
   currentPoint: {fileID: 0}
   isFacingLeft: 1
+  canMove: 1
+  stopTime: 1
 --- !u!114 &6038315205190828126
 MonoBehaviour:
   m_ObjectHideFlags: 0

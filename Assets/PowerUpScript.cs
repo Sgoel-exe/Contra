@@ -28,4 +28,18 @@ public class PowerUpScript : MonoBehaviour
     {
         return powerTime;
     }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            StartCoroutine(Die());
+        }
+    }
+
+    private IEnumerator Die()
+    {
+        yield return new WaitForSeconds(0.3f);
+        Destroy(gameObject);
+    }
 }
