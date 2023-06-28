@@ -29,6 +29,8 @@ public class ShootMechanics : MonoBehaviour
 
     [SerializeField] private float fireRate = 0.2f;
     private float timer = 0f;
+
+    private bool infinite = false;
     private void Awake()
     {
         playerInput = new PlayerMovements();
@@ -51,6 +53,10 @@ public class ShootMechanics : MonoBehaviour
         reloadKey.Disable();
     }
 
+    public void setInfinite(bool val)
+    {
+        infinite = val;
+    }
     void Fire(InputAction.CallbackContext callbackContext)
     {
         fire(false);
@@ -75,9 +81,12 @@ public class ShootMechanics : MonoBehaviour
     }
     void fire(bool isHeld)
     {
-        if (canShoot())
+        if (canShoot() || infinite)
         {
-            currentBullets--;
+            if (!infinite)
+            {
+                currentBullets--;
+            }
             animator.SetBool("isShooting", true);
             //bulletPrefab.GetComponent<Bullet>().setSpeed(bulletSpeed);
             //bulletPrefab.GetComponent <Bullet>().setDamage(bulletDamage);

@@ -16,6 +16,9 @@ public class HealthScript : MonoBehaviour
     [SerializeField] private float vanishTime = 0.1f;
     [SerializeField] private Color flashColor;
     private Color ogColor;
+
+    private bool isShield = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,8 +42,17 @@ public class HealthScript : MonoBehaviour
         }
     }
 
+    public void setShield(bool val)
+    {
+        this.isShield = val;
+    }
+
     public void TakeDamage(int damage)
     {
+        if (isShield)
+        {
+            return;
+        }
         curhealth -= damage;
         Instantiate(blood, transform.position, Quaternion.identity);
         healthBar.setHealth(curhealth, maxhealth);
@@ -59,6 +71,21 @@ public class HealthScript : MonoBehaviour
             curhealth = maxhealth;
         }
         healthBar.setHealth(curhealth, maxhealth);
+    }
+
+    public IEnumerator Shield(float time)
+    {
+        Color color = new Color(0, 255, 255);
+        //float flTime = time / Time.deltaTime;
+        this.setShield(true);
+        for (float temp = 0; temp < 4; temp ++)
+        {
+            thisSprite.color = color;
+            yield return new WaitForSeconds(time/8f);
+            thisSprite.color = ogColor;
+            yield return new WaitForSeconds(time/8f);
+        }
+        this.setShield(false);
     }
 
     public IEnumerator DamageStun()
