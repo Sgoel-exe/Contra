@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ShootMechanics : MonoBehaviour
@@ -51,6 +52,17 @@ public class ShootMechanics : MonoBehaviour
     {
         fireAction.Disable();
         reloadKey.Disable();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (PlayerPrefs.HasKey("L1"))
+        {
+            reservedAmmo = PlayerPrefs.GetInt("Reserved");
+            currentBullets = PlayerPrefs.GetInt("Current");
+        }
+        
     }
 
     public void setInfinite(bool val)
@@ -117,11 +129,6 @@ public class ShootMechanics : MonoBehaviour
             reservedAmmo -= (magSize - currentBullets);
             currentBullets = magSize;
         }
-        
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
         
     }
 
@@ -194,5 +201,11 @@ public class ShootMechanics : MonoBehaviour
     private void StopShoot()
     {
         animator.SetBool("isShooting", false);
+    }
+
+    public void saveData()
+    {
+        PlayerPrefs.SetInt("Reserved", reservedAmmo);
+        PlayerPrefs.SetInt("Current", currentBullets);
     }
 }

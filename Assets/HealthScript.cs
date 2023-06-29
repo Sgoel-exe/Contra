@@ -22,9 +22,14 @@ public class HealthScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        healthBar.setHealth(curhealth, maxhealth);
         thisSprite = GetComponent<SpriteRenderer>();
         ogColor = thisSprite.color;
+        if (PlayerPrefs.HasKey("L1"))
+        {
+            maxhealth = PlayerPrefs.GetInt("MaxH");
+            curhealth = PlayerPrefs.GetInt("CurH");
+        }
+        healthBar.setHealth(curhealth, maxhealth);
         //rb = GetComponent<Rigidbody2D>();
     }
 
@@ -98,6 +103,12 @@ public class HealthScript : MonoBehaviour
             yield return new WaitForSeconds(vanishTime);
         }
         
+    }
+
+    public void saveData()
+    {
+        PlayerPrefs.SetInt("MaxH", maxhealth);
+        PlayerPrefs.SetInt("CurH", curhealth);
     }
     void Die()
     {
