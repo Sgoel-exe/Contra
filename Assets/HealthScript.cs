@@ -22,6 +22,7 @@ public class HealthScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        healthBar.setHealth(curhealth, maxhealth);
         thisSprite = GetComponent<SpriteRenderer>();
         ogColor = thisSprite.color;
         if (PlayerPrefs.HasKey("L1"))
