@@ -25,10 +25,15 @@ public class HealthScript : MonoBehaviour
         healthBar.setHealth(curhealth, maxhealth);
         thisSprite = GetComponent<SpriteRenderer>();
         ogColor = thisSprite.color;
-        if (PlayerPrefs.HasKey("L1"))
+        if (PlayerPrefs.GetInt("Level") != 1)
         {
             maxhealth = PlayerPrefs.GetInt("MaxH");
             curhealth = PlayerPrefs.GetInt("CurH");
+        }
+        else
+        {
+            maxhealth = 100;
+            curhealth = 100;
         }
         healthBar.setHealth(curhealth, maxhealth);
         //rb = GetComponent<Rigidbody2D>();

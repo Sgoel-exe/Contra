@@ -12,5 +12,6 @@ public class Delete : MonoBehaviour
     public void del()
     {
         PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt("Level", 1);
     }
 }

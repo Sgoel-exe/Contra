@@ -57,10 +57,15 @@ public class ShootMechanics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.HasKey("L1"))
+        if (PlayerPrefs.GetInt("Level") != 1)
         {
             reservedAmmo = PlayerPrefs.GetInt("Reserved");
             currentBullets = PlayerPrefs.GetInt("Current");
+        }
+        else
+        {
+            reservedAmmo = 24;
+            currentBullets = 6;
         }
         
     }
