@@ -116,7 +116,7 @@ public class HealthScript : MonoBehaviour
         PlayerPrefs.SetInt("MaxH", maxhealth);
         PlayerPrefs.SetInt("CurH", curhealth);
     }
-    void Die()
+    public void Die()
     {
         Destroy(gameObject);
         UnityEngine.SceneManagement.SceneManager.LoadScene("Gameover");

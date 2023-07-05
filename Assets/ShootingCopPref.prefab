@@ -134,6 +134,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 463597793427448327}
     m_Modifications:
+    - target: {fileID: 4515632846078498751, guid: 6cc6f4aae44d89f468bee36a5cea844a, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4515632847449423841, guid: 6cc6f4aae44d89f468bee36a5cea844a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -209,6 +213,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8771110205453510271, guid: 6cc6f4aae44d89f468bee36a5cea844a, type: 3}
   m_PrefabInstance: {fileID: 463597794506377052}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &463597794506377029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9211613852358746403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04749aa3f99a53946ac16b443ea4c767, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  curHealth: 100
+  healthBar: {fileID: 4090895304712081637}
+  deathEffect: {fileID: 6416419833205740478, guid: e360672ae39314ff1a77fee796e40aaa, type: 3}
 --- !u!114 &463597794506377050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,22 +249,6 @@ MonoBehaviour:
   isFacingLeft: 1
   canMove: 1
   stopTime: 1
---- !u!114 &463597794506377029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9211613852358746403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04749aa3f99a53946ac16b443ea4c767, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  curHealth: 100
-  healthBar: {fileID: 4090895304712081637}
-  deathEffect: {fileID: 6416419833205740478, guid: e360672ae39314ff1a77fee796e40aaa, type: 3}
 --- !u!114 &6170881549386578491
 MonoBehaviour:
   m_ObjectHideFlags: 0

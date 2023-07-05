@@ -21,7 +21,7 @@ public class LevelLoader : MonoBehaviour
     {
         collison.GetComponent<HealthScript>().saveData();
         collison.GetComponent<ShootMechanics>().saveData();
-        PlayerPrefs.SetInt("Level", 2);
+        PlayerPrefs.SetInt("Level", levelToLoad);
     }
 
     private IEnumerator WaitAndLoadScene()

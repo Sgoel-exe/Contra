@@ -12,7 +12,7 @@ public class ShootMechanics : MonoBehaviour
     public Transform firePoint;
     public GameObject bulletPrefab;
     private float bulletSpeed = 15f;
-    private int bulletDamage = 15;
+    public int bulletDamage = 15;
     //public GameObject MuzzleFlash;
 
     public Animator animator;
@@ -107,7 +107,10 @@ public class ShootMechanics : MonoBehaviour
             animator.SetBool("isShooting", true);
             //bulletPrefab.GetComponent<Bullet>().setSpeed(bulletSpeed);
             //bulletPrefab.GetComponent <Bullet>().setDamage(bulletDamage);
-            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            bullet.GetComponent<Bullet>().setDamage(bulletDamage);
+            bullet.GetComponent<Bullet>().setSpeed(bulletSpeed);
+            Debug.Log(bulletDamage);
             //Instantiate(MuzzleFlash, firePoint.position, Quaternion.Euler(0,0,0));
             Invoke("StopShoot", animationTime);
             
