@@ -781,6 +781,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 504501695}
     m_Modifications:
+    - target: {fileID: 2159810440354849947, guid: 672770adb069c474a8670d96201b5fc0, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: d228726cabb905746a2aaff6cb865dd6, type: 2}
     - target: {fileID: 4022317480007410716, guid: 672770adb069c474a8670d96201b5fc0, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1703,6 +1707,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 504501695}
     m_Modifications:
+    - target: {fileID: 2159810440354849947, guid: 672770adb069c474a8670d96201b5fc0, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4022317480007410716, guid: 672770adb069c474a8670d96201b5fc0, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2503,6 +2511,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 504501695}
     m_Modifications:
+    - target: {fileID: 2159810440354849947, guid: 672770adb069c474a8670d96201b5fc0, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: d228726cabb905746a2aaff6cb865dd6, type: 2}
     - target: {fileID: 4022317480007410716, guid: 672770adb069c474a8670d96201b5fc0, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2704,6 +2716,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8216485774738992822, guid: 6c01c473c529ac94a8e75af44bf4b08c, type: 3}
+      propertyPath: powerTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216485774738992822, guid: 6c01c473c529ac94a8e75af44bf4b08c, type: 3}
+      propertyPath: powerUpType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8216485774738992823, guid: 6c01c473c529ac94a8e75af44bf4b08c, type: 3}
       propertyPath: m_RootOrder
       value: 6

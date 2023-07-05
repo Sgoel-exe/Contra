@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PowerUpScript : MonoBehaviour
 {
-
+    [Tooltip("0-Damage,1-Speed,2-Ammo,3-Shield")]
     [Range(0, 3), SerializeField] private int powerUpType = 0;
     [Range(0f, 5f), SerializeField] private float powerTime = 1f;
     // Start is called before the first frame update

@@ -5,8 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class StartContra : MonoBehaviour
 {
-    public void LetsGo(string level)
+    public void NewGame()
     {
-        SceneManager.LoadScene(level);
+        PlayerPrefs.SetInt("Level", 1);
+        LoadLevel();
+    }
+
+    public void LoadLevel()
+    {
+        SceneManager.LoadScene("Level" + PlayerPrefs.GetInt("Level").ToString());
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
