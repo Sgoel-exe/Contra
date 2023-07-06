@@ -27,6 +27,6 @@ public class LevelLoader : MonoBehaviour
     private IEnumerator WaitAndLoadScene()
     {
         yield return new WaitForSeconds(1f);
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Level" + levelToLoad.ToString());
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Upgrade");
     }
 }

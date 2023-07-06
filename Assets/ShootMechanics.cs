@@ -61,11 +61,13 @@ public class ShootMechanics : MonoBehaviour
         {
             reservedAmmo = PlayerPrefs.GetInt("Reserved");
             currentBullets = PlayerPrefs.GetInt("Current");
+            bulletDamage = PlayerPrefs.GetInt("Damage");
         }
         else
         {
             reservedAmmo = 24;
             currentBullets = 6;
+            bulletDamage = 25;
         }
         
     }
@@ -105,8 +107,7 @@ public class ShootMechanics : MonoBehaviour
                 currentBullets--;
             }
             animator.SetBool("isShooting", true);
-            //bulletPrefab.GetComponent<Bullet>().setSpeed(bulletSpeed);
-            //bulletPrefab.GetComponent <Bullet>().setDamage(bulletDamage);
+
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             bullet.GetComponent<Bullet>().setDamage(bulletDamage);
             bullet.GetComponent<Bullet>().setSpeed(bulletSpeed);
@@ -215,5 +216,6 @@ public class ShootMechanics : MonoBehaviour
     {
         PlayerPrefs.SetInt("Reserved", reservedAmmo);
         PlayerPrefs.SetInt("Current", currentBullets);
+        PlayerPrefs.SetInt("Damage", bulletDamage);
     }
 }

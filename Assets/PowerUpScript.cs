@@ -57,7 +57,7 @@ public class PowerUpScript : MonoBehaviour
         ShootMechanics PlShoot = collison.GetComponent<ShootMechanics>();
         int ogDamage = PlShoot.gerBulletDamge();
         float ogSpeed = PlShoot.getBulletSpeed();
-        Debug.Log("Damage");
+        //Debug.Log("Damage");
         PlShoot.setBulletDamage(100);
         PlShoot.setBulletSpeed(40f);
         yield return new WaitForSeconds(powerTime);
@@ -69,7 +69,7 @@ public class PowerUpScript : MonoBehaviour
     private IEnumerator FlashMode(Collider2D collison)
     {
         Movement PlMove = collison.gameObject.GetComponent<Movement>();
-        Debug.Log("FlashMode");
+        //Debug.Log("FlashMode");
         PlMove.setSpeedMultiplier(10f);
         yield return new WaitForSeconds(powerTime);
         PlMove.setSpeedMultiplier(1f);
