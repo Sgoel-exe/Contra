@@ -20,4 +20,9 @@ public class StartContra : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void toStart()
+    {
+        SceneManager.LoadScene("Start");
+    }
 }

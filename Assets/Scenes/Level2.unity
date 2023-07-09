@@ -314,6 +314,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5110276136974275093, guid: 22092b8baf0e42f4abbda86deb278144, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5110276136974275093, guid: 22092b8baf0e42f4abbda86deb278144, type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22092b8baf0e42f4abbda86deb278144, type: 3}
 --- !u!4 &171906504 stripped
@@ -1911,8 +1919,8 @@ Transform:
   - {fileID: 527362526}
   - {fileID: 864985114}
   - {fileID: 450018971}
-  - {fileID: 171906504}
   - {fileID: 1853882108}
+  - {fileID: 171906504}
   - {fileID: 1777794539}
   - {fileID: 377092310}
   m_Father: {fileID: 0}
